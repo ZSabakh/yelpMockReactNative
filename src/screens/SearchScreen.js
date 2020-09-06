@@ -1,29 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Search from "../components/Search";
-import yelp from "../api/yelp";
+import useSearch from "../hooks/useSearch";
+import ResultList from "../components/ResultList";
 
 function SearchScreen() {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([]);
-  const [errorNotif, setErrorNotif] = useState("");
+  const [initSearch, results, errorNotif] = useSearch();
 
-  const initSearch = async () => {
-    try {
-      const response = await yelp.get("/businesses/search", {
-        params: {
-          limit: 50,
-          term: search,
-          location: "new york city",
-        },
-      });
-      setResults(response.data.businesses);
-    } catch (err) {
-      console.log("ERROR:", err);
-      setErrorNotif(`Sum Ting Wong`);
-      Alert.alert("Ho Lee Fuk", err.toString());
-    }
-  };
+  function priceFilter(price) {
+    return results.filter((result) => {
+      return result.price === price;
+    });
+  }
 
   return (
     <View>
@@ -32,14 +21,17 @@ function SearchScreen() {
         onSearchChange={(newSearch) => {
           setSearch(newSearch);
         }}
-        onSearchSubmit={() => initSearch()}
+        onSearchSubmit={() => initSearch(search)}
       />
-      <Text>Henlo</Text>
+      <Text>City: {results[0].location.city}</Text>
       {errorNotif ? <Text>{errorNotif}</Text> : null}
       <Text>
         Found {results.length === 50 ? `${results.length}+` : results.length}{" "}
         results
       </Text>
+      <ResultList results={priceFilter("$")} title="Cheap" />
+      <ResultList results={priceFilter("$$")} title="Moderate" />
+      <ResultList results={priceFilter("$$$")} title="High Roller" />
     </View>
   );
 }
