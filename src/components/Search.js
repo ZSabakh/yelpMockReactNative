@@ -11,7 +11,7 @@ function Search(props) {
         onChangeText={(newSearch) => props.onSearchChange(newSearch)}
         style={styles.input}
         placeholder="Search"
-        onEndEditing={() => onSearchSubmit()}
+        onEndEditing={() => props.onSearchSubmit()}
       />
     </View>
   );
