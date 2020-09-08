@@ -23,7 +23,7 @@ function SearchScreen() {
         }}
         onSearchSubmit={() => initSearch(search)}
       />
-      <Text>City: {results[0].location.city}</Text>
+      {results[0] ? <Text>City: {results[0].location.city}</Text> : null}
       {errorNotif ? <Text>{errorNotif}</Text> : null}
       <Text>
         Found {results.length === 50 ? `${results.length}+` : results.length}{" "}

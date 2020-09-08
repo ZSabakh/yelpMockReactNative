@@ -24,7 +24,7 @@ export default () => {
   };
 
   useEffect(() => {
-    initSearch("italian");
+    initSearch("");
   }, []);
 
   return [initSearch, results, errorNotif];
