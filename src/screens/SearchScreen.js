@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Search from "../components/Search";
 import useSearch from "../hooks/useSearch";
 import ResultList from "../components/ResultList";
@@ -15,7 +15,7 @@ function SearchScreen() {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Search
         search={search}
         onSearchChange={(newSearch) => {
@@ -29,9 +29,13 @@ function SearchScreen() {
         Found {results.length === 50 ? `${results.length}+` : results.length}{" "}
         results
       </Text>
-      <ResultList results={priceFilter("$")} title="Cheap" />
-      <ResultList results={priceFilter("$$")} title="Moderate" />
-      <ResultList results={priceFilter("$$$")} title="High Roller" />
+      <ScrollView>
+        <ResultList results={priceFilter("$")} title="Cheap" />
+        <ResultList results={priceFilter("$$")} title="Moderate" />
+        {priceFilter("$$$").length > 0 ? (
+          <ResultList results={priceFilter("$$$")} title="High Roller" />
+        ) : null}
+      </ScrollView>
     </View>
   );
 }

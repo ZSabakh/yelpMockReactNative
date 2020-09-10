@@ -7,6 +7,7 @@ function ResultList(props) {
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={props.results}
         keyExtractor={(result) => result.id}
