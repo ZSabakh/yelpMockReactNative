@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import SearchScreen from "./src/screens/SearchScreen";
-
+import DetailScreen from "./src/screens/DetailScreen";
 const Stack = createStackNavigator();
 
 function Navigation() {
@@ -14,6 +14,7 @@ function Navigation() {
         component={SearchScreen}
         options={{ title: "Search!" }}
       />
+      <Stack.Screen name="Restaurant" component={DetailScreen} />
     </Stack.Navigator>
   );
 }

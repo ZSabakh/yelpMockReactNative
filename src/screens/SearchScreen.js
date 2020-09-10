@@ -23,17 +23,32 @@ function SearchScreen() {
         }}
         onSearchSubmit={() => initSearch(search)}
       />
-      {results[0] ? <Text>City: {results[0].location.city}</Text> : null}
+
       {errorNotif ? <Text>{errorNotif}</Text> : null}
-      <Text>
-        Found {results.length === 50 ? `${results.length}+` : results.length}{" "}
-        results
-      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        {results[0] ? <Text>City: {results[0].location.city}</Text> : null}
+        <Text>
+          Found {results.length === 50 ? `${results.length}+` : results.length}{" "}
+          results
+        </Text>
+      </View>
       <ScrollView>
-        <ResultList results={priceFilter("$")} title="Cheap" />
-        <ResultList results={priceFilter("$$")} title="Moderate" />
+        <ResultList
+          // navigation={props.navigation}
+          results={priceFilter("$")}
+          title="Cheap"
+        />
+        <ResultList
+          // navigation={props.navigation}
+          results={priceFilter("$$")}
+          title="Moderate"
+        />
         {priceFilter("$$$").length > 0 ? (
-          <ResultList results={priceFilter("$$$")} title="High Roller" />
+          <ResultList
+            // navigation={props.navigation}
+            results={priceFilter("$$$")}
+            title="High Roller"
+          />
         ) : null}
       </ScrollView>
     </View>
