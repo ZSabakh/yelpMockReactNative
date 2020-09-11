@@ -22,7 +22,9 @@ function ResultList(props) {
         keyExtractor={(result) => result.id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate("Restaurant")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Restaurant", { id: item.id })}
+            >
               <RestaurantDetail detail={item} />
             </TouchableOpacity>
           );
